@@ -1,0 +1,17 @@
+try {
+<% insert_at ||= :top %>
+<%= render :partial => 'update_messages', :locals => {:messages_id => active_scaffold_messages_id} %>
+<% if controller.send :successful? %>
+  <% if (active_scaffold_config.duplicate.refresh_list) %>
+    <%= render :partial => 'refresh_list' %>
+  <% else %>
+    <% new_row = render :partial => 'list_record', :locals => {:record => @record} %>
+    ActiveScaffold.create_record_row('<%= active_scaffold_id %>','<%= escape_javascript(new_row) %>', <%= {:insert_at => insert_at}.to_json.html_safe %>);
+    <%= render :partial => 'update_calculations', :formats => [:js] %>
+  <% end %>
+  <% if (active_scaffold_config.duplicate.action_after_clone) %>
+    var link = ActiveScaffold.find_action_link('<%= action_link_id active_scaffold_config.duplicate.action_after_clone, @record.id %>');
+    if (link) (function() { link.open() })<%= '.defer' if ActiveScaffold.js_framework == :prototype %>();
+  <% end %>
+<% end %>
+} catch (e) { alert('RJS error:\n\n' + e.toString());}

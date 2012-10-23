@@ -1,0 +1,69 @@
+h1. Drag-Drop Sortable for ActiveScaffold
+
+Currently, this gem is compatible with rails 3.x and ActiveScaffold 3.3.x gems.
+
+h2. Overview
+
+This gem adds an action to clone records. By default will only set attributes and belongs_to associations. You must override initialize_dup in your model or define a method to clone the record and set in conf.duplicate.method.
+
+h2. Installation
+
+You'll need at least ActiveScaffold 3.3.x to use this, and rails 3.x
+
+
+<pre>
+gem install active_scaffold_duplicate
+</pre>
+
+h2. Usage
+
+h4. Step 1
+
+Override intialize_dup in the model:
+
+<pre>
+# app/models/bill.rb
+class Bill < ActiveRecord::Base
+  belongs_to :customer
+  has_many :items
+  
+  def initialize_dup(other)
+    super
+    self.items = other.items.map(&:dup)
+  end
+end
+</pre>
+
+h4. Step 2
+
+Add duplicate action.
+
+<pre>
+class BillsController < ActiveRecord::Base
+  active_scaffold do |conf|
+    conf.actions << :duplicate
+  end
+end
+</pre>
+
+
+h2. Support
+
+If you have issues installing the gem, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_clone/issues
+
+h2. Contributing
+
+Fork, hack, push, and request a pull:
+
+http://github.com/activescaffold/active_scaffold_duplicate/
+
+h2. License
+
+Released under the MIT license (included).
+
+h2. Author
+
+Contact me:
+<pre>
+  Sergio Cambra - irb(main):001:0> ( 'sergioATprogramatica._see_s'.gsub('_see_', 'e').gsub('AT', '@') )
+</pre>
