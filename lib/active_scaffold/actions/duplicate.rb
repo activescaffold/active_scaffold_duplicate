@@ -7,8 +7,12 @@ module ActiveScaffold::Actions
     def duplicate
       old_record = find_if_allowed(params[:id], :read)
       @record = old_record.send(active_scaffold_config.duplicate.method)
-      self.successful = @record.save
-      respond_to_action(:duplicate)
+      if request.post?
+        self.successful = @record.save
+        respond_to_action(:duplicate)
+      else
+        respond_to_action(:new)
+      end
     end
     
     protected

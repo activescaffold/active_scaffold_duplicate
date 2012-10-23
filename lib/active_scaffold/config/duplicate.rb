@@ -14,7 +14,7 @@ module ActiveScaffold::Config
     cattr_accessor :method
     @@method = :dup
     
-    # which action render after clone
+    # which action render after clone with post
     cattr_accessor :action_after_clone
     @@action_after_clone = nil
 
@@ -35,7 +35,7 @@ module ActiveScaffold::Config
     # the method to clone records
     attr_accessor :method
 
-    # which action render after clone
+    # which action render after clone with post
     attr_accessor :action_after_clone
 
     # whether we should refresh list after clone or not
