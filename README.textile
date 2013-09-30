@@ -48,12 +48,13 @@ end
 
 h4. Step 3
 
-Change method to :get in link if you want to display create form instead of cloning record.
+Change method to :get in link if you want to display create form instead of cloning record. Set position to :replace or :after.
 
 <pre>
 class BillsController < ApplicationController
   active_scaffold do |conf|
-    conf.duplicate.link.options.method = :get
+    conf.duplicate.link.method = :get
+    conf.duplicate.link.position = :after
   end
 end
 </pre>
@@ -63,7 +64,8 @@ Also you can change it globally.
 <pre>
 class ApplicationController < ActionController::Base
   active_scaffold.set_defaults do |conf|
-    conf.duplicate.link.options.method = :get
+    conf.duplicate.link.method = :get
+    conf.duplicate.link.position = :after
   end
 end
 </pre>
