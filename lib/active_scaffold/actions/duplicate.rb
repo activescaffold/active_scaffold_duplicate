@@ -8,15 +8,22 @@ module ActiveScaffold::Actions
       @old_record = find_if_allowed(params[:id], :read)
       @record = @old_record.send(active_scaffold_config.duplicate.method)
       if request.post?
+        before_duplicate_save(@record)
         self.successful = @record.save
+        after_duplicate_save(@record) if successful?
         respond_to_action(:duplicate)
       else
         params.delete :id
+        before_duplicate_new(@record)
         respond_to_action(:new)
       end
     end
     
     protected
+    def before_duplicate_save(@record); end
+    def before_duplicate_new(@record); end
+    def after_duplicate_save(@record); end
+
     def duplicate_authorized?(record = nil)
       (record || self).authorized_for?(:crud_type => :create, :action => :duplicate)
     end

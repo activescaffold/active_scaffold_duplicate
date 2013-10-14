@@ -1,0 +1,7 @@
+= 1.0.1
+- Before/after controller methods support
+- Set record which is being duplicated in @old_record variable, so it can be used in helpers when form is displayed to duplicate
+- Remove :id parameter from create URL in form
+
+= 1.0.0
+- Initial release
