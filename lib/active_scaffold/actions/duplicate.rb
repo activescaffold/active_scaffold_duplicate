@@ -20,9 +20,9 @@ module ActiveScaffold::Actions
     end
     
     protected
-    def before_duplicate_save(@record); end
-    def before_duplicate_new(@record); end
-    def after_duplicate_save(@record); end
+    def before_duplicate_save(record); end
+    def before_duplicate_new(record); end
+    def after_duplicate_save(record); end
 
     def duplicate_authorized?(record = nil)
       (record || self).authorized_for?(:crud_type => :create, :action => :duplicate)
