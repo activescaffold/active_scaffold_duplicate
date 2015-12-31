@@ -7,6 +7,7 @@ module ActiveScaffold::Config
       self.method = self.class.method
       self.link = self.class.link.clone
       self.action_after_clone = self.class.action_after_clone
+      self.action_view = self.class.action_view
       self.refresh_list = self.class.refresh_list
     end
 
@@ -17,6 +18,10 @@ module ActiveScaffold::Config
     # which action render after clone with post
     cattr_accessor :action_after_clone
     @@action_after_clone = nil
+
+    # which view render when method is :get (used as respond_to_action argument)
+    cattr_accessor :action_view
+    @@action_view = :new
 
     # whether we should refresh list after clone or not
     cattr_accessor :refresh_list
@@ -37,6 +42,9 @@ module ActiveScaffold::Config
 
     # which action render after clone with post
     attr_accessor :action_after_clone
+
+    # which view render when method is :get (used as respond_to_action argument)
+    attr_accessor :action_view
 
     # whether we should refresh list after clone or not
     attr_accessor :refresh_list

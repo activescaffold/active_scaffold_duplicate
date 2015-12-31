@@ -15,7 +15,7 @@ module ActiveScaffold::Actions
       else
         params.delete :id
         before_duplicate_new(@record)
-        respond_to_action(:new)
+        respond_to_action(active_scaffold_config.duplicate.action_view)
       end
     end
     
