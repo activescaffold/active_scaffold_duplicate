@@ -1,3 +1,9 @@
+= 1.0.3
+- Add action_view config option, to use as argument on respond_to_action for get request
+
+= 1.0.2
+- Update to latest ActiveScaffold
+
 = 1.0.1
 - Before/after controller methods support
 - Set record which is being duplicated in @old_record variable, so it can be used in helpers when form is displayed to duplicate
