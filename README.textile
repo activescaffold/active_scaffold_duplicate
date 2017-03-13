@@ -1,6 +1,6 @@
-h1. Drag-Drop Sortable for ActiveScaffold
+h1. Duplicate Action for ActiveScaffold
 
-Currently, this gem is compatible with rails 3.x and ActiveScaffold 3.3.x gems.
+Currently, this gem is compatible with ActiveScaffold >= 3.3.x gems, which works for rails >= 3.x.
 
 h2. Overview
 
@@ -90,7 +90,7 @@ It's possible to define some methods to add some custom code which require acces
 
 h2. Support
 
-If you have issues installing the gem, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_clone/issues
+If you have issues installing the gem, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_duplicate/issues
 
 h2. Contributing
 
