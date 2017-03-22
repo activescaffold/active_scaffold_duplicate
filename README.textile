@@ -1,6 +1,7 @@
 h1. Duplicate Action for ActiveScaffold
 
-Currently, this gem is compatible with ActiveScaffold >= 3.3.x gems, which works for rails >= 3.x.
+Currently, this gem is compatible with ActiveScaffold >= 3.3.x gems and rails >= 4.0.
+Use 1.0.x for rails >= 3.x versions.
 
 h2. Overview
 
