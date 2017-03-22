@@ -1,7 +1,7 @@
 module ActiveScaffold::Actions
   module Duplicate
     def self.included(base)
-      base.before_filter :duplicate_authorized_filter, :only => :duplicate
+      base.before_action :duplicate_authorized_filter, :only => :duplicate
     end
     
     def duplicate
