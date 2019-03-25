@@ -47,15 +47,15 @@ module ActiveScaffold::Actions
     end
 
     def duplicate_respond_to_xml
-      render :xml => response_object.to_xml(:only => active_scaffold_config.create.columns.names), :content_type => Mime::XML, :status => response_status, :location => response_location
+      render :xml => response_object.to_xml(:only => active_scaffold_config.create.columns.visible_columns_names), :content_type => Mime::XML, :status => response_status, :location => response_location
     end
 
     def duplicate_respond_to_json
-      render :text => response_object.to_json(:only => active_scaffold_config.create.columns.names), :content_type => Mime::JSON, :status => response_status, :location => response_location
+      render :text => response_object.to_json(:only => active_scaffold_config.create.columns.visible_columns_names), :content_type => Mime::JSON, :status => response_status, :location => response_location
     end
 
     def duplicate_respond_to_yaml
-      render :text => Hash.from_xml(response_object.to_xml(:only => active_scaffold_config.create.columns.names)).to_yaml, :content_type => Mime::YAML, :status => response_status, :location => response_location
+      render :text => Hash.from_xml(response_object.to_xml(:only => active_scaffold_config.create.columns.visible_columns_names)).to_yaml, :content_type => Mime::YAML, :status => response_status, :location => response_location
     end
     
     private
