@@ -1,3 +1,14 @@
+= 1.1.2
+- Fix for threadsafe mode
+- Allow to change settings per-request in threadsafe mode
+
+= 1.1.1
+- Update to latest activescaffold (3.6.0.pre)
+
+= 1.1.0
+- Fix deprecation in rails 5.0
+- Drop support of rails < 4.0
+
 = 1.0.3
 - Add action_view config option, to use as argument on respond_to_action for get request
 

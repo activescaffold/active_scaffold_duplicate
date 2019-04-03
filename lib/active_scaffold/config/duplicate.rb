@@ -48,5 +48,9 @@ module ActiveScaffold::Config
 
     # whether we should refresh list after clone or not
     attr_accessor :refresh_list
+
+    UserSettings.class_eval do
+      user_attr :method, :action_after_clone, :action_view, :refresh_list
+    end
   end
 end
