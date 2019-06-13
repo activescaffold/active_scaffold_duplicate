@@ -3,9 +3,8 @@ module ActiveScaffold::Config
     self.crud_type = :create
     
     def initialize(core_config)
-      @core = core_config
+      super
       self.method = self.class.method
-      self.link = self.class.link.clone
       self.action_after_clone = self.class.action_after_clone
       self.action_view = self.class.action_view
       self.refresh_list = self.class.refresh_list
