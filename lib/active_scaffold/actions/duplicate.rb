@@ -25,7 +25,7 @@ module ActiveScaffold::Actions
     def after_duplicate_save(record); end
 
     def duplicate_authorized?(record = nil)
-      (record || self).authorized_for?(:crud_type => :create, :action => :duplicate)
+      (record || self).authorized_for?(crud_type: :create, action: :duplicate, reason: true)
     end
     
     def duplicate_respond_to_html
@@ -61,7 +61,7 @@ module ActiveScaffold::Actions
     private
     def duplicate_authorized_filter
       link = active_scaffold_config.duplicate.link || active_scaffold_config.duplicate.class.link
-      raise ActiveScaffold::ActionNotAllowed unless self.send(link.security_method)
+      raise ActiveScaffold::ActionNotAllowed unless Array(send(link.security_method))[0]
     end
     def duplicate_formats
       (default_formats + active_scaffold_config.formats + active_scaffold_config.duplicate.formats).uniq
