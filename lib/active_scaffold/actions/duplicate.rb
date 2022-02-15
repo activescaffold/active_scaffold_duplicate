@@ -5,7 +5,7 @@ module ActiveScaffold::Actions
     end
     
     def duplicate
-      @old_record = find_if_allowed(params[:id], :read)
+      @old_record = find_if_allowed(params[:id], crud_type: :read, action: :duplicate)
       @record = @old_record.send(active_scaffold_config.duplicate.method)
       if request.post?
         before_duplicate_save(@record)
