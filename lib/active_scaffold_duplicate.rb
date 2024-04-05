@@ -1,4 +1,3 @@
-require "active_scaffold_duplicate/config/core.rb"
 require "active_scaffold_duplicate/engine.rb"
 
 module ActiveScaffoldDuplicate
