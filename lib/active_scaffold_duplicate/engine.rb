@@ -5,9 +5,16 @@ module ActiveScaffoldDuplicate
         include ActiveScaffold::Helpers::DuplicateHelpers
       end
     end
+
     initializer 'active_scaffold_duplicate.routes' do
       ActiveSupport.on_load :active_scaffold_routing do
         self::ACTIVE_SCAFFOLD_CORE_ROUTING[:member][:duplicate] = [:post, :get]
+      end
+    end
+
+    initializer "active_scaffold_duplicate" do
+      ActiveSupport.on_load :active_scaffold do
+        require 'autoload'
       end
     end
   end
