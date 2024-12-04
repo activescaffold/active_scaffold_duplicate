@@ -17,10 +17,9 @@ Gem::Specification.new do |s|
     "README.textile"
   ]
   s.files = Dir["{app,lib,config}/**/*"] + %w[LICENSE.txt README.textile]
-  s.test_files = Dir["test/**/*"]
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<active_scaffold>, [">= 3.7.1"])
+  s.add_runtime_dependency(%q<active_scaffold>, ['>= 4.0.0.rc1'])
 end
 

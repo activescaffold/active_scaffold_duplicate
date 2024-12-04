@@ -11,7 +11,7 @@ try {
   <% end %>
   <% if (active_scaffold_config.duplicate.action_after_clone) %>
     var link = ActiveScaffold.find_action_link('<%= action_link_id active_scaffold_config.duplicate.action_after_clone, @record.id %>');
-    if (link) (function() { link.open() })<%= '.defer' if ActiveScaffold.js_framework == :prototype %>();
+    if (link) link.open();
   <% end %>
 <% end %>
 } catch (e) { alert('RJS error:\n\n' + e.toString());}
