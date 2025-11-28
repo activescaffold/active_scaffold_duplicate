@@ -4,6 +4,7 @@ module ActiveScaffoldDuplicate
   def self.root
     File.dirname(__FILE__) + "/.."
   end
+  autoload :Subform, 'active_scaffold_duplicate/subform'
 end
 
 module ActiveScaffold
@@ -19,3 +20,5 @@ module ActiveScaffold
     ActiveScaffold.autoload_subdir('helpers', self, File.dirname(__FILE__))
   end
 end
+
+ActiveScaffold.javascripts << 'active_scaffold_duplicate'

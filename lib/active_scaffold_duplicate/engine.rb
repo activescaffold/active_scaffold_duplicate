@@ -10,5 +10,8 @@ module ActiveScaffoldDuplicate
         self::ACTIVE_SCAFFOLD_CORE_ROUTING[:member][:duplicate] = [:post, :get]
       end
     end
+    initializer 'active_scaffold_duplicate.extensions' do
+      ActiveScaffold::Actions::Subform.prepend ActiveScaffoldDuplicate::Subform
+    end
   end
 end

@@ -27,6 +27,17 @@ module ActiveScaffold::Actions
     def duplicate_authorized?(record = nil)
       (record || self).authorized_for?(crud_type: :create, action: :duplicate, reason: true)
     end
+
+    def do_edit_associated
+      super
+      if params[:dup]
+        attributes = params.delete(:dup)
+        @scope&.slice(1..-2)&.split('][')&.each { |scope| attributes = attributes[scope] }
+        attributes = attributes[@column.name].values
+        cfg = active_scaffold_config_for(@record.class)
+        update_record_from_params(@record, cfg.subform.columns, attributes, true)
+      end
+    end
     
     def duplicate_respond_to_html
       if successful?
