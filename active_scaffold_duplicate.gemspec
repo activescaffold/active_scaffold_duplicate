@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/activescaffold/active_scaffold_duplicate}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.textile"
+    "README.md"
   ]
   s.files = Dir["{app,lib,config}/**/*"] + %w[LICENSE.txt README.textile]
   s.licenses = ["MIT"]
