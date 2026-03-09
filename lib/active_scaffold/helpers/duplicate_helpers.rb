@@ -12,6 +12,7 @@ module ActiveScaffold
 
       def active_scaffold_subform_record_actions(association_column, record, locked, scope)
         actions = super
+        return actions if association_column.nil?
         return actions unless association_column.association.collection?
         return actions unless (association_column.form_ui_options || association_column.options)[:duplicate]
 
