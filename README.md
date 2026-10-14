@@ -1,6 +1,6 @@
 # Duplicate Action for ActiveScaffold
 
-Currently, this gem is compatible with ActiveScaffold >= 4.2.0
+Currently, this gem is compatible with ActiveScaffold >= 4.4.0.
 
 ## Overview
 
@@ -10,7 +10,7 @@ Also, adds support to duplicate rows in a subform, setting the `:duplicate` sett
 
 ## Installation
 
-You'll need at least ActiveScaffold 3.3.x to use this, and rails 3.x
+You'll need ActiveScaffold 4.4.0 or newer.
 
 ```bash
 gem install active_scaffold_duplicate
@@ -99,6 +99,20 @@ conf.columns[:lines].options = {duplicate: true} # set in the column options, wo
 ```
 
 Cloning the record will send a request to `edit_associated` action in the parent controller, same as adding a new record.
+
+### UI adapter support
+
+The duplicate link rendered for a subform row exposes the
+`subform_record_duplicate` UI element. UI framework adapters can add or replace
+its HTML attributes without overriding the helper:
+
+```ruby
+ActiveScaffold.add_element_attributes :subform_record_duplicate,
+                                      class: 'btn btn-sm btn-secondary'
+```
+
+The plugin keeps the `dup` class used by its JavaScript and merges it with
+classes supplied by the adapter.
 
 If you want to make changes to the cloned record before added to the subform, you can override `duplicate_subform_record` method in your controller, call `super` to leave active_scaffold_duplicate to copy the submitted attributes, and then make your changes. You can check what subform was called for with `@column` variable:
 
