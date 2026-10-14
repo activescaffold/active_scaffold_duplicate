@@ -18,7 +18,17 @@ module ActiveScaffold
 
         safe_join(
           [
-            link_to(as_(:duplicate), '#', class: 'dup', style: 'display: none;', remote: true, data: {scope: scope}),
+            link_to(
+              as_(:duplicate),
+              '#',
+              as_element_attributes(
+                :subform_record_duplicate,
+                class: 'dup',
+                style: 'display: none;',
+                remote: true,
+                data: {scope: scope}
+              )
+            ),
             actions
           ]
         )
