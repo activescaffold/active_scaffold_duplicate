@@ -35,7 +35,7 @@ module ActiveScaffold::Actions
         @scope&.slice(1..-2)&.split('][')&.each { |scope| attributes = attributes[scope] }
         attributes = attributes[@column.name].values
         cfg = active_scaffold_config_for(@record.class)
-        update_record_from_params(@record, cfg.subform.columns, attributes, true)
+        update_record_from_params(@record, cfg.subform.columns, attributes, avoid_changes: true)
       end
     end
     
