@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module ActiveScaffold::Config
   class Duplicate < Base
     self.crud_type = :create
-    
+
     def initialize(core_config)
       super
       self.method = self.class.method
@@ -11,31 +13,30 @@ module ActiveScaffold::Config
     end
 
     # the method to clone records
-    cattr_accessor :method
-    @@method = :dup
-    
+    cattr_accessor :method, instance_accessor: false, default: :dup
+
     # which action render after clone with post
-    cattr_accessor :action_after_clone
-    @@action_after_clone = nil
+    cattr_accessor :action_after_clone, instance_accessor: false, default: nil
 
     # which view render when method is :get (used as respond_to_action argument)
-    cattr_accessor :action_view
-    @@action_view = :new
+    cattr_accessor :action_view, instance_accessor: false, default: :new
 
     # whether we should refresh list after clone or not
-    cattr_accessor :refresh_list
-    @@refresh_list = false
+    cattr_accessor :refresh_list, instance_accessor: false, default: false
 
     # the ActionLink for this action
-    cattr_accessor :link
-    @@link = ActiveScaffold::DataStructures::ActionLink.new(:duplicate, :type => :member, :method => :post, :position => false, :security_method => :duplicate_authorized?, :ignore_method => :duplicate_ignore?)
+    cattr_accessor :link, instance_accessor: false,
+                          default: ActiveScaffold::DataStructures::ActionLink.new(
+                            :duplicate, type: :member, method: :post, position: false,
+                                        security_method: :duplicate_authorized?, ignore_method: :duplicate_ignore?
+                          )
 
     # instance-level configuration
     # ----------------------------
 
     # the ActionLink for this action
     attr_accessor :link
-    
+
     # the method to clone records
     attr_accessor :method
 

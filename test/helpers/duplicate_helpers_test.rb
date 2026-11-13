@@ -12,8 +12,17 @@ require_relative '../../lib/active_scaffold/helpers/duplicate_helpers'
 class DuplicateHelpersTest < Minitest::Test
   Association = Struct.new(:collection?)
   Column = Struct.new(:association, :form_ui_options, :options)
+  Columns = Struct.new(:visible_columns_names)
+  ActionConfig = Struct.new(:columns)
+  ScaffoldConfig = Struct.new(:create)
 
   class BaseHelper
+    attr_accessor :action_name, :active_scaffold_config, :base_columns
+
+    def current_form_columns(*)
+      base_columns
+    end
+
     def active_scaffold_subform_record_actions(*)
       'existing action'
     end
@@ -25,6 +34,7 @@ class DuplicateHelpersTest < Minitest::Test
     attr_reader :element_calls, :link_calls
 
     def initialize
+      super
       @element_calls = []
       @link_calls = []
     end
@@ -64,5 +74,37 @@ class DuplicateHelpersTest < Minitest::Test
       }
     ], helper.element_calls.first
     assert_equal 'adapter dup', helper.link_calls.first.last[:class]
+  end
+
+  def test_duplicate_uses_visible_create_columns_when_form_columns_are_missing
+    helper = Helper.new
+    helper.action_name = 'duplicate'
+    helper.active_scaffold_config = ScaffoldConfig.new(ActionConfig.new(Columns.new(%i[name category])))
+
+    assert_equal %i[name category], helper.current_form_columns(Object.new, nil)
+  end
+
+  def test_current_form_columns_preserves_columns_returned_by_active_scaffold
+    helper = Helper.new
+    helper.action_name = 'duplicate'
+    helper.base_columns = %i[name description]
+
+    assert_equal %i[name description], helper.current_form_columns(Object.new, nil)
+  end
+
+  def test_current_form_columns_remains_nil_for_other_actions
+    helper = Helper.new
+    helper.action_name = 'edit'
+
+    assert_nil helper.current_form_columns(Object.new, nil)
+  end
+
+  def test_subform_actions_are_unchanged_when_duplication_is_disabled
+    helper = Helper.new
+    column = Column.new(Association.new(true), {duplicate: false}, {})
+
+    assert_equal 'existing action',
+                 helper.active_scaffold_subform_record_actions(column, Object.new, false, 'children')
+    assert_empty helper.link_calls
   end
 end

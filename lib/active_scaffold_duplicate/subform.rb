@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 module ActiveScaffoldDuplicate
   module Subform
     protected
+
     def do_edit_associated
       super
-      if params[:dup]
-        attributes = params.delete(:dup)
-        @scope&.slice(1..-2)&.split('][')&.each { |scope| attributes = attributes[scope] }
-        attributes = attributes[@column.name].values[0]
-        duplicate_subform_row(@record, attributes)
-      end
+      return unless params[:dup]
+
+      attributes = params.delete(:dup)
+      @scope&.slice(1..-2)&.split('][')&.each { |scope| attributes = attributes[scope] }
+      attributes = attributes[@column.name].values[0]
+      duplicate_subform_row(@record, attributes)
     end
 
     def duplicate_subform_row(record, attributes, columns = nil)

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module ActiveScaffold::Actions
   module Duplicate
     def self.included(base)
-      base.before_action :duplicate_authorized_filter, :only => :duplicate
+      base.before_action :duplicate_authorized_filter, only: :duplicate
     end
-    
+
     def duplicate
       @old_record = find_if_allowed(params[:id], crud_type: :read, action: :duplicate)
       @record = @old_record.send(active_scaffold_config.duplicate.method)
@@ -18,8 +20,9 @@ module ActiveScaffold::Actions
         respond_to_action(active_scaffold_config.duplicate.action_view)
       end
     end
-    
+
     protected
+
     def before_duplicate_save(record); end
     def before_duplicate_new(record); end
     def after_duplicate_save(record); end
@@ -28,22 +31,11 @@ module ActiveScaffold::Actions
       (record || self).authorized_for?(crud_type: :create, action: :duplicate, reason: true)
     end
 
-    def do_edit_associated
-      super
-      if params[:dup]
-        attributes = params.delete(:dup)
-        @scope&.slice(1..-2)&.split('][')&.each { |scope| attributes = attributes[scope] }
-        attributes = attributes[@column.name].values
-        cfg = active_scaffold_config_for(@record.class)
-        update_record_from_params(@record, cfg.subform.columns, attributes, avoid_changes: true)
-      end
-    end
-    
     def duplicate_respond_to_html
       if successful?
-        flash[:info] = as_(:created_model, :model => @record.to_label)
-        if action = active_scaffold_config.duplicate.action_after_clone
-          redirect_to params_for(:action => action, :id => @record.id)
+        flash[:info] = as_(:created_model, model: @record.to_label)
+        if (action = active_scaffold_config.duplicate.action_after_clone)
+          redirect_to params_for(action: action, id: @record.id)
         else
           return_to_main
         end
@@ -51,29 +43,29 @@ module ActiveScaffold::Actions
         return_to_main
       end
     end
-    
+
     def duplicate_respond_to_js
       do_refresh_list if successful? && active_scaffold_config.duplicate.refresh_list
-      render :action => 'duplicate'
+      render action: 'duplicate'
     end
 
     def duplicate_respond_to_xml
-      render :xml => response_object.to_xml(:only => active_scaffold_config.create.columns.visible_columns_names), :content_type => Mime::XML, :status => response_status, :location => response_location
+      render xml: response_object.to_xml(only: active_scaffold_config.create.columns.visible_columns_names),
+             content_type: Mime::XML, status: response_status, location: response_location
     end
 
     def duplicate_respond_to_json
-      render :text => response_object.to_json(:only => active_scaffold_config.create.columns.visible_columns_names), :content_type => Mime::JSON, :status => response_status, :location => response_location
+      render text: response_object.to_json(only: active_scaffold_config.create.columns.visible_columns_names),
+             content_type: Mime::JSON, status: response_status, location: response_location
     end
 
-    def duplicate_respond_to_yaml
-      render :text => Hash.from_xml(response_object.to_xml(:only => active_scaffold_config.create.columns.visible_columns_names)).to_yaml, :content_type => Mime::YAML, :status => response_status, :location => response_location
-    end
-    
     private
+
     def duplicate_authorized_filter
       link = active_scaffold_config.duplicate.link || active_scaffold_config.duplicate.class.link
       raise ActiveScaffold::ActionNotAllowed unless Array(send(link.security_method))[0]
     end
+
     def duplicate_formats
       (default_formats + active_scaffold_config.formats + active_scaffold_config.duplicate.formats).uniq
     end
