@@ -7,6 +7,9 @@ source 'http://rubygems.org'
 
 gemspec
 
+gem 'simplecov', '~> 0.22.0', require: false
+gem 'simplecov_json_formatter', require: false
+
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development, :test do
