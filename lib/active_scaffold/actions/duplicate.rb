@@ -51,12 +51,12 @@ module ActiveScaffold::Actions
 
     def duplicate_respond_to_xml
       render xml: response_object.to_xml(only: active_scaffold_config.create.columns.visible_columns_names),
-             content_type: Mime::XML, status: response_status, location: response_location
+             content_type: Mime[:xml], status: response_status, location: response_location
     end
 
     def duplicate_respond_to_json
       render text: response_object.to_json(only: active_scaffold_config.create.columns.visible_columns_names),
-             content_type: Mime::JSON, status: response_status, location: response_location
+             content_type: Mime[:json], status: response_status, location: response_location
     end
 
     private
